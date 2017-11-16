@@ -1,0 +1,43 @@
+/*Change NAVBAR height*/
+.navbar {
+  min-height: 80px;
+  font-size: 1.15em;
+}
+
+.navbar-brand {
+  padding: 0 15px;
+  height: 80px;
+  line-height: 80px;
+}
+
+.navbar-toggle {
+  /* (80px - button height 34px) / 2 = 23px */
+  margin-top: 23px;
+  padding: 9px 10px !important;
+}
+
+@media (min-width: 768px) {
+  .navbar-nav > li > a {
+    /* (80px - line-height of 27px) / 2 = 26.5px */
+    padding-top: 26.5px;
+    padding-bottom: 26.5px;
+    line-height: 27px;
+  }
+}
+
+/*set carousel size*/
+.carousel-inner > .item > img, .carousel-inner > .item > a > img {
+    width: 100%;
+    height: 540;
+}
+
+/*.carousel-caption {
+     top: 50%;
+     transform: translateY(-50%);
+}*/
+
+#myCarousel {
+     margin-top: 80px;
+}
+
+#

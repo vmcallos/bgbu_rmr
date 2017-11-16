@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+     <head>
+          <meta charset="utf-8">
+          <title>BGBU RMR</title>
+          <link rel="stylesheet" href="compiled\flipclock.css">
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+          <link rel="stylesheet" href="E:\Users\callos\Documents\GitHub\BGBU\rmr site\bgbu_rmr\styles.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+          <script src="compiled\flipclock.js"></script>
+     </head>
+     <body>
+          <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" href="#">BGBU Resource Management Review</a>
+              </div>
+              <ul class="nav navbar-nav navbar-right">
+                   <li><a href="#">HOME</a></li>
+                   <li><a href="#">SCHEDULE</a></li>
+                   <li><a href="#">SPEAKERS</a></li>
+                   <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                   <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              </ul>
+            </div>
+          </nav>
+
+          <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="2"></li>
+              <li data-target="#myCarousel" data-slide-to="3"></li>
+            </ol>
+
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+
+              <div class="item active">
+                <img src="images/geox.jpg" alt="Event Page">
+                <div class="carousel-caption" style="top:50%; transform: translateY(-50%);">
+                  <h3>BGBU</h3>
+                  <h1>RESOURCE MANAGEMENT REVIEW</h1>
+                  <h3>DECEMBER 5-6, 2017</h3>
+                  <p></p>
+                </div>
+              </div>
+
+              <div class="item" >
+                <img src="images/geochem.jpg" alt="Geochem">
+                <div class="carousel-caption">
+                  <h3>GEOCHEMISTRY</h3>
+                  <p></p>
+                </div>
+              </div>
+
+              <div class="item">
+                <img src="images/res_eng.jpg" alt="Res Eng">
+                <div class="carousel-caption">
+                  <h3>RESERVOIR ENGINEERING</h3>
+                  <p></p>
+                </div>
+              </div>
+
+              <div class="item">
+                <img src="images/well_testx.png" alt="Well Test">
+                <div class="carousel-caption">
+                  <h3>WELL TEST AND MEASUREMENT</h3>
+                  <p></p>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+
+
+          <div class="jumbotron" style="padding-top: 1px">
+               <div class="container" style="text-align:center;">
+                    <h2 class='text'>COUNTDOWN BEFORE THE MEETING:</h2>
+
+                    <div class="clock" style="display:inline-block; margin:2em; width:auto;"></div>
+                    <!-- <div class="message">Sample Message</div> -->
+                    <script type="text/javascript">
+                       var clock;
+
+                       $(document).ready(function() {
+                            var clock;
+                            var d1 = new Date();
+                            var d2 = new Date('2017-12-05 08:00:00');
+                            var d3 = (d2-d1)/1000;
+
+                            clock = $('.clock').FlipClock({
+                              clockFace: 'DailyCounter',
+                              autoStart: false,
+                              callbacks: {
+                                 stop: function() {
+                                      $('.message').html('The clock has stopped!')
+                                 }
+                              }
+                           });
+                           clock.setTime(d3);
+                           clock.setCountdown(true);
+                           clock.start();
+
+                       });
+                    </script>
+
+               <!-- <p></p>
+          <p>Bootstrap is the most popular HTML, CSS, and JS framework for developing
+          responsive, mobile-first projects on the web.</p> -->
+               </div>
+          </div>
+
+          <nav class="navbar navbar-inverse navbar-fixed-bottom">
+               <div class="container-fluid" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">
+                    <div class="navbar-header" >
+                         <p style="color:white;">All Rights Reserved</p>
+                    </div>
+               </div>
+          </nav>
+     </body>
+</html>

@@ -2,17 +2,31 @@
 <html>
 <head>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <style>
+  .control-row {
+    width: 20%;
+    margin-top: 50px;
+    float: left;
+    font-weight: bold;
+  }
+  p {
+    margin: 20px 0px 0px 0px;
+  }
+  </style>
 </head>
 <body>
-  <div class="control-row" style="width: 880px; margin-left: 20px">
-      Province: <select id='province' class="custom-select"></select>
-      Municipality: <select id='municipality' class="custom-select"></select>
-  </div>
-  <div id="plot" style="width: 900px; height: 600px;"></div>
 
-<!-- <script src="js/plotly-latest.min.js"></script> -->
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <div class="container">
+    <div class="control-row" >
+        <p>Province:</p>
+        <select id='province' class="custom-select" ></select>
+        <p>Municipality:</p>
+        <select id='municipality' class="custom-select"></select>
+    </div>
+    <div id="plot" style="width: 79%; float: left;"></div>
+  </div>
+
 <script>
   const plot_div = document.querySelector("#plot"),
         prov_selector = document.querySelector("#province"),
@@ -21,8 +35,6 @@
   fetch("data/ira.json").then(function (r) {
     return r.json();
   }).then(function (json) {
-
-    // Initialize variables
     var currentProv,
         currentMuni;
 
@@ -53,7 +65,6 @@
 
     function updateProvince(){
         currentProv = prov_selector.value;
-        console.log(currentProv);
         // Update Municipality List
         getMunicipalities(json, currentProv)
         assignOptions(municipalities, muni_selector)
@@ -62,7 +73,6 @@
 
     function updateMunicipality(){
         currentMuni = muni_selector.value;
-        console.log(currentMuni);
         updatePlot(currentProv, currentMuni)
     }
 
@@ -71,6 +81,7 @@
         x: json.labels,
         y: json.values[prov][muni],
         mode: 'lines+markers',
+        hovertemplate: 'PHP %{y:.2f} M<extra></extra>',
         marker: {
                 size: 12,
                 opacity: 0.5
@@ -85,19 +96,18 @@
       'hovermode': 'x',
       'xaxis': {
         'title': 'Year',
-        'gridcolor': 'rgba(0, 0, 0, 0)'
+        'gridcolor': 'rgba(0, 0, 0, 0)',
+        'size': 22
       },
       'yaxis': {
         'title': 'PHP (in millions)',
-        'gridcolor': 'rgba(0, 0, 0, 0)'
+        'gridcolor': 'rgba(0, 0, 0, 0.1)'
+        // 'gridwidth': 1,
       }
-    }
-      console.log(data)      
-
+    }   
       Plotly.newPlot(plot_div, data[0], layout);
     }
   })
 </script>
-
 </body>
 </html>

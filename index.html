@@ -1,4 +1,103 @@
+<!DOCTYPE html>
 <html>
+<head>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+</head>
+<body>
+  <div class="control-row" style="width: 880px; margin-left: 20px">
+      Province: <select id='province' class="custom-select"></select>
+      Municipality: <select id='municipality' class="custom-select"></select>
+  </div>
+  <div id="plot" style="width: 900px; height: 600px;"></div>
 
+<!-- <script src="js/plotly-latest.min.js"></script> -->
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script>
+  const plot_div = document.querySelector("#plot"),
+        prov_selector = document.querySelector("#province"),
+        muni_selector = document.querySelector("#municipality");
+
+  fetch("data/ira.json").then(function (r) {
+    return r.json();
+  }).then(function (json) {
+
+    // Initialize variables
+    var currentProv,
+        currentMuni;
+
+    var provinces = Object.keys(json.values);
+    currentProv = provinces[0]
+
+    getMunicipalities(json, currentProv)
+    assignOptions(provinces, prov_selector)
+    updateProvince()
+    updateMunicipality()
+
+    prov_selector.addEventListener('change', updateProvince, false);
+    muni_selector.addEventListener('change', updateMunicipality, false);
+    
+    function assignOptions(textArray, selector) {
+      selector.innerText = null  //clear existing select content
+      for (var i = 0; i < textArray.length;  i++) {
+            var currentOption = document.createElement('option');
+            currentOption.text = textArray[i];
+            selector.appendChild(currentOption);
+        } 
+    }
+
+    function getMunicipalities(json, prov) {
+      municipalities = Object.keys(json.values[prov]);
+      currentMuni = municipalities[0];
+    }
+
+    function updateProvince(){
+        currentProv = prov_selector.value;
+        console.log(currentProv);
+        // Update Municipality List
+        getMunicipalities(json, currentProv)
+        assignOptions(municipalities, muni_selector)
+        updatePlot(currentProv, currentMuni)
+    }
+
+    function updateMunicipality(){
+        currentMuni = muni_selector.value;
+        console.log(currentMuni);
+        updatePlot(currentProv, currentMuni)
+    }
+
+    function updatePlot(prov, muni) {
+      var trace1 = [{
+        x: json.labels,
+        y: json.values[prov][muni],
+        mode: 'lines+markers',
+        marker: {
+                size: 12,
+                opacity: 0.5
+            }
+      }];
+
+      var data = [trace1];
+
+      var layout = {
+      'title': 'IRA - ' + muni + ", " + prov,
+      'plot_bgcolor': 'rgba(0, 0, 0, 0)',
+      'hovermode': 'x',
+      'xaxis': {
+        'title': 'Year',
+        'gridcolor': 'rgba(0, 0, 0, 0)'
+      },
+      'yaxis': {
+        'title': 'PHP (in millions)',
+        'gridcolor': 'rgba(0, 0, 0, 0)'
+      }
+    }
+      console.log(data)      
+
+      Plotly.newPlot(plot_div, data[0], layout);
+    }
+  })
+</script>
+
+</body>
 </html>
